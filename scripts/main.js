@@ -19,40 +19,105 @@ const items = [
   },
 ];
 
+const popupElement = document.querySelector('.popup');
+const popupImage = document.querySelector('.popup__image');
+const popupCloseButton = document.querySelector('.popup__close');
+const defaultCardButton = document.querySelector('.filter__button_type_grid');
+const horizontalCardButton = document.querySelector('.filter__button_type_column');
+
 class Card {
-  constructor(title, description, price, image) {
-    this._title = title;
-    this._description = description;
-    this._price = price;
-    this._image = image;
+  constructor(selector) {
+    this._selector = selector;
   }
 
   _getElement() {
-    const cardElement = document
-      .querySelector('.horizontal-card')
-      .content
-      .querySelector('.card')
-      .cloneNode(true);
-
+    const cardElement = document.querySelector(this._selector).content.querySelector('.card').cloneNode(true);
     return cardElement;
   }
-   generate() {
-    this._element = this._getElement();
-    this._element.querySelector('.card__image').style.backgroundImage = `url(${this._image})`;
-    this._element.querySelector('.card__title').textContent = this._title;
-    this._element.querySelector('.card__info').textContent = this._description;
-    this._element.querySelector('.card__price-property').textContent = this._price; 
-     
-    return this._element; 
+
+  _handleOpenPopup() {
+    popupImage.src = this._image;
+    popupElement.classList.add('popup_is-opened');
+  }
+
+  _handleClosePopup() {
+    popupImage.src = '';
+    popupElement.classList.remove('popup_is-opened');
+  }
+
+  _setEventListeners() {
+    this._element.addEventListener('click', () => {
+      this._handleOpenPopup();
+    });
+
+    popupCloseButton.addEventListener('click', () => {
+      this._handleClosePopup();
+    });
   }
 }
 
-items.forEach((item) => {
-    // Создаём экземпляр сообщения
-  const card = new Card(item.title, item.description, item.price, item.image);
-   // Создаём карточку сообщения и возвращаем её наружу
-  const cardElement = card.generate();
+class DefaultCard extends Card {
+   constructor(data, selector) {
+    super(selector);
+    this._title = data.title;
+    this._description = data.description;
+    this._image = data.image;
+  } 
+  
+  generate() {
+    this._element = super._getElement();
+    super._setEventListeners();
 
-  // Добавляем в DOM
-  document.querySelector('.card-list__items').append(cardElement);
+    this._element.querySelector('.card__image').style.backgroundImage = `url(${this._image})`;
+    this._element.querySelector('.card__title').textContent = this._title;
+    return this._element;
+  } 
+}
+
+class HorizontalCard extends Card {
+   constructor(data, selector) {
+    super(selector);
+    this._title = data.title;
+    this._description = data.description;
+    this._price = data.price;
+    this._image = data.image;    
+  }
+  
+  generate() {
+    this._element = super._getElement();
+    super._setEventListeners();
+
+    this._element.querySelector('.card__image').style.backgroundImage = `url(${this._image})`;
+    this._element.querySelector('.card__title').textContent = this._title;
+    this._element.querySelector('.card__info').textContent = this._description;
+    this._element.querySelector('.card__price-property').textContent = this._price;
+
+    return this._element;
+  }  
+}
+
+const renderElements = (isGrid) => {
+  const cardList = document.querySelector('.card-list__items')
+  cardList.innerHTML = ''
+
+
+  items.forEach((item) => {
+    const card = isGrid
+    ? new DefaultCard(item, '.default-card')
+    : new HorizontalCard(item, '.horizontal-card')
+
+    const cardElement = card.generate();
+    cardList.append(cardElement)
+    
+  });
+}
+
+defaultCardButton.addEventListener('click', () => {
+  renderElements(true)
+});
+
+horizontalCardButton.addEventListener('click', () => {
+  renderElements(false);
 }); 
+
+renderElements()

@@ -26,13 +26,26 @@
     </div>
   </section>
 </main>
+
 <div class="popup">
   <div class="popup__content">
     <button type="button" class="popup__close"></button>
-    <img src="https://code.s3.yandex.net/web-code/oop/card_detail.jpg" alt="" class="popup__image">
+    <img src="" alt="" class="popup__image">
     <p class="popup__caption"></p>
   </div>
 </div>
+
+<!--Шаблон обычной карточки-->
+<template class="default-card">
+  <article class="card">
+    <div class="card__image" style=""></div>
+    <h3 class="card__title"></h3>
+    <p class="card__property"></p>
+    <button class="button classic-button card__button">
+      Узнать больше
+    </button>
+  </article>
+</template>
 
 <!-- Шаблон горизонтальной карточки -->
 <template class="horizontal-card">
