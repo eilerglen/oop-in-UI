@@ -1,0 +1,110 @@
+@charset "UTF-8";
+@import url('https://code.s3.yandex.net/web-code/normalize.css');
+
+@font-face {
+  font-family: "PTSans";
+  src: url("https://code.s3.yandex.net/web-code/fonts/PTSans-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PTSans";
+  src: url("https://code.s3.yandex.net/web-code/fonts/PTSans-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.page {
+  min-width: 302px;
+  font-family: "PTSans", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1rem;
+  letter-spacing: 1.05px;
+  color: black;
+  background-color: #f3f3f3;
+}
+
+.content {
+  width: 100%;
+}
+
+.page__content {
+  max-width: 1024px;
+  padding:  30px 15px;
+}
+
+.button {
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px 15px;
+}
+
+.filter__button {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e6d7bd;
+  transition: 0.3s;
+  margin: 0px 6.5px;
+}
+
+.card_content_horizontal {
+  width: 100%;
+  flex-direction: row;
+}
+
+.card__image {
+  width: 156px;
+  height: 156px;
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  margin: 0 auto;
+}
+
+.popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  transition: visibility 0s, opacity 0.6s;
+  z-index: 10;
+}
+
+.popup__content {
+  max-width: 75vw;
+  max-height: 75vh;
+  height: auto;
+  width: auto;
+  display: flex;
+  background: transparent;
+  position: relative;
+  -webkit-background-size: cover;
+  background-size: cover;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  padding: 0;
+}
